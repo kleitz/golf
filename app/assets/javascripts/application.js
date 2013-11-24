@@ -35,15 +35,15 @@
 //= require_tree ../angular/templates/secure
 //= require_tree ../angular/templates/users
 
-//= depend_on_asset "create_controller.js"
-//= depend_on_asset "home_controller.js"
-//= depend_on_asset "index_controller.js"
-//= depend_on_asset "update_controller.js"
-//= depend_on_asset "sessions_controller.js"
-//= depend_on_asset "models.js"
-//= depend_on_asset "home.html.erb"
-//= depend_on_asset "index.html.erb"
-//= depend_on_asset "new.html.erb"
+//= depend_on "../angular/controllers/create_controller.js"
+//= depend_on "../angular/controllers/home_controller.js"
+//= depend_on "../angular/controllers/index_controller.js"
+//= depend_on "../angular/controllers/update_controller.js"
+//= depend_on "../angular/sessions/sessions_controller.js"
+//= depend_on "../angular/services/models.js"
+//= depend_on "../angular/templates/games/home.html.erb"
+//= depend_on "../angular/templates/games/index.html.erb"
+//= depend_on "../angular/templates/games/new.html.erb"
 
 
 
