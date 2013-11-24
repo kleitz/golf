@@ -20,6 +20,7 @@ User.create(:name => "Wonder woman", :email => "wonder@email.com", :admin => tru
 User.create(:name => "Mr X", :email => "mrx@email.com", :admin => true)
 User.create(:name => "John Doe", :email => "john@email.com", :admin => true)
 
+=begin
 if newUser.errors.blank?
 	puts "The user: #{newUser.name} has been created with these login details: Email: #{newUser.email}"
 else
@@ -28,6 +29,8 @@ else
        puts"#{x} #{y}" # x will be the field name and y will be the error on it
      end
 end
+=end
+
 
 mail = UserMailer.welcome(newUser)
 if mail.errors.blank?
