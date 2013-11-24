@@ -29,9 +29,8 @@
 //= require ../angular/app.js.erb
 //= require_tree ../angular
 //= require_tree ../angular/controllers
-//= require_tree ../angular/filters
 //= require_tree ../angular/services
 //= require_tree ../angular/templates
-// require_tree ../angular/templates/games
-// require_tree ../angular/templates/secure
-// require_tree ../angular/templates/users
+//= require_tree ../angular/templates/games
+//= require_tree ../angular/templates/secure
+//= require_tree ../angular/templates/users
