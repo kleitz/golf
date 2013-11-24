@@ -29,8 +29,6 @@ else
        puts"#{x} #{y}" # x will be the field name and y will be the error on it
      end
 end
-=end
-
 
 mail = UserMailer.welcome(newUser)
 if mail.errors.blank?
@@ -41,6 +39,8 @@ else
 		puts "#{x} #{y}"
 	end
 end
+
+=end
 
 puts "********Seeding Data End************"
 
