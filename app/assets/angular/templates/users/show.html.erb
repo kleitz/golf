@@ -1,0 +1,18 @@
+<div class="inner">
+	<div>
+		<div id="messages" class="alert alert-success" ng-show="flash.get().length">
+	    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	    {{flash.get()}}
+	  </div>
+		<legend>{{user.name}}</legend>
+
+		<p>E-post: {{user.email}}</p>
+		<p>Telephone: {{user.telephone}}</p>
+		<p>Date of birth: {{user.dateOfBirth}}</p>
+		<p>Admin: {{user.admin}}</p>
+
+		<div class="btn-group">
+			<a href="/#/users/edit/{{user.id}}" class ="btn btn-warning">Edit user</a>
+		</div>
+	</div>
+</div>

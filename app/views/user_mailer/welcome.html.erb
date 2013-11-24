@@ -1,0 +1,12 @@
+<p>Hej!</p>
+ 
+ <p>Ett konto har skapats till dig på lönerapportsystemet.</p>
+ <p>Ditt användarnamn är: <%= @user.email %>.</p>
+
+ 
+ <p>
+ Bekräfta din epost adress <%= link_to 'här', confirmation_url(@user, :confirmation_token => @user.confirmation_token) %> och välj ett lösenord.
+ </p>
+ <p>Med Vänliga hälsningar</p>
+ <p>Lönerapportsystemet</p>
+

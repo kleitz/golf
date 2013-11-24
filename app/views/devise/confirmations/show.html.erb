@@ -1,0 +1,54 @@
+
+
+	<%= form_for(resource, :as => resource_name, :url => confirm_path, :method => "put") do |f| %>
+		<% if resource.errors.any? %>
+      <div class="alert alert-danger">
+        <a class="close" data-dismiss="alert">&#215;</a>
+        <h4><%= resource.errors.count %> fel hindrade denna användare från att sparas</h4>
+        <ul>
+          <% resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+		<legend>You're almost finished. Create a password.</legend>
+
+	  <div class="row">  
+      <div class="form-group col-md-4">
+      	<%= f.label :email  %>
+  			<%= f.email_field :email, :autofocus => true, :class => "form-control" %>
+	  	</div>
+	  </div>
+	  
+	  <%= f.hidden_field :confirmation_token %>
+
+	  <%= f.hidden_field :id, :value => @user.id %>
+
+	  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="row">  
+      <div class="form-group col-md-4">
+      	<%= f.label :password %>
+  			<%= f.password_field :password, :autocomplete => 'off', :class => "form-control" %>
+	  	</div>
+	  </div>
+
+    <div class="row">  
+      <div class="form-group col-md-4">
+        <%= f.label :password_confirmation %>
+  			<%= f.password_field :password_confirmation, :class => "form-control", :label => "Lösenordsbekräftelse" %>
+	  	</div>
+	  </div>
+
+	  <div class="row">  
+      <div class="form-group col-md-4">
+        <%= f.submit "Save", :class => "btn btn-success" %>
+      </div>
+    </div>
+	<% end %>
+
+
+	<%= render "devise/shared/links" %>

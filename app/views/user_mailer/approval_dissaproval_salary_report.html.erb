@@ -1,0 +1,9 @@
+<p>Hej!</p>
+
+<p>Din lönerapport för <%= l @salary_report.salary_period, :format => "%B %Y" %> har blivit granskad och har status: <%= t(@salary_report.status) %></p>
+<% if @salary_report.comment_from_admin %>
+	<p>Administratören hade följande kommentarer: <%= @salary_report.comment_from_admin %></p>
+<% end %>
+
+<p>Med Vänliga hälsningar</p>
+<p>Lönerapportsystemet</p>

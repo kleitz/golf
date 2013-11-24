@@ -1,0 +1,43 @@
+<!--.login.inner
+	.login.row-fluid{"ng-show"=>"!authorized()", 'ng-controller' => 'SessionsController'}
+		.well
+			.alert.warning
+				Vänligen logga in :)
+			%form{"ng-submit"=>"signIn()"}
+				#errors.alert.alert-error{"ng-show"=>"authErrors"}
+					{{authErrors}}
+				.row-fluid.control-group
+					= label_tag :email
+					.controls
+						=email_field_tag :email, '', autofocus: true, 'ng-model' => 'email', class: 'span4'
+				.row-fluid.control-group
+					=label_tag :password
+					.controls
+						=password_field_tag :password, '', 'ng-model' => 'password', class: 'span4'
+				=submit_tag "Logga in", class: "btn btn-info"
+ -->
+<div class="login inner" ng-show="!authorized()" ng-controller="SessionsController">
+	<div class="well">
+		<legend>Logga in</legend>
+		<form ng-submit="signIn()">
+			<div id="errors" class="alert alert-error" ng-show="authErrors">
+				{{authErrors}}
+			</div>
+			<div class="row-fluid control-group">
+				<label>Epost</label>
+				<div class="controls">
+					<input type="email" autofocus="true" ng-model="email" class="span4" />
+				</div>
+			</div>
+			<div class="row-fluid control-group">
+				<label>Lösenord</label>
+				<div class="controls">
+					<input type="password" ng-model="password" class="span4" />
+				</div>
+			</div>
+			<div class="controls">
+				<input type="submit" class="btn btn-info" value="Logga in" />
+			</div>
+		</form>
+	</div>
+</div>

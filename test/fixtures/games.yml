@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  game_date: 2013-10-05
+  comments: MyText
+  tee1: 2013-10-05 13:29:30
+  tee2: 2013-10-05 13:29:30
+  name: MyString
+
+two:
+  game_date: 2013-10-05
+  comments: MyText
+  tee1: 2013-10-05 13:29:30
+  tee2: 2013-10-05 13:29:30
+  name: MyString

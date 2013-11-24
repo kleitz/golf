@@ -1,0 +1,25 @@
+'use strict';
+/*
+    This is our main launch point from Angular. We'll put anything to do with the
+    general well being of our app in this file. For now it'll basically just contain
+    the routing information.
+ 
+    Our module will be called 'app'.
+ 
+    Note: We need the empty array after the 'app' declaration, without it, you
+    get an error complaining about 'No module <MODULE>'.
+ */
+angular.module('app', ['rails', 'ng-rails-csrf', 'ui.bootstrap','$strap.directives', 'resettableForm', 'filters'])
+  .config(['$routeProvider' ,'$locationProvider' , function($routeProvider, $locationProvider){
+    //$locationProvider.html5Mode(true);
+    $routeProvider
+    
+      .when('/', {templateUrl:('<%= asset_path('templates/index.html')%>')})
+      .when('/games', {controller: 'GameIndexController',templateUrl: '<%= asset_path('templates/games/index.html.erb') %>'})
+      .when('/game/new', {controller: 'GameController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
+      .when('/game/edit/:id', {controller: 'GameUpdateController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
+      .when('/home', {controller: 'GameHomeController', templateUrl: '<%= asset_path('templates/games/home.html.erb') %>'})
+      //.when('/users/sign_in', {templateUrl: '<%= asset_path('templates/secure/show.html') %>'})
+      
+      .otherwise('/#/users') 
+}]);

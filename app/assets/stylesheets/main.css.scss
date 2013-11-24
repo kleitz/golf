@@ -1,0 +1,72 @@
+#container{
+	margin-top: 60px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#content{
+	margin: 0 auto 0 auto;
+}
+
+.error{
+	color:red;
+}
+
+.push-down{
+	margin-top:25px;
+}
+
+.imageList{
+	padding-right:20px;
+	padding-bottom:20px;
+}
+
+.playerImg{
+  padding-bottom:5px;
+}
+
+.well {
+   background-color: rgba(245, 245, 245, 0.4);
+}
+
+body{
+	background-image:url('../images/blur.jpg');
+	background-size: cover;
+  background-repeat: no-repeat;
+  background-position:fixed;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+hr, legend{
+	border-color: rgba(245, 245, 245, 0.4);
+}
+
+.table > thead > tr > th{
+	border-bottom: 1px solid rgba(245, 245, 245, 0.4);
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	border-top: 1px solid rgba(245, 245, 245, 0.4);	
+}
+
+.form-control + .input-icon {
+    background-color: #FFFFFF;
+    border-radius: 6px 6px 6px 6px;
+    color: #B2BCC5;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 12px 0 0;
+    position: absolute;
+    right: 25px;
+    top: 2px;
+    vertical-align: middle;
+}
+.glyphicon .glyphicon-search{
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
