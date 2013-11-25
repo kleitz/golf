@@ -13,17 +13,21 @@ angular.module('app', ['rails', 'ng-rails-csrf', 'ui.bootstrap','$strap.directiv
   .config(['$routeProvider' ,'$locationProvider' , function($routeProvider, $locationProvider){
     //$locationProvider.html5Mode(true);
     $routeProvider
+      //= depend_on_asset controllers/games/create_controller.js
+      //= depend_on_asset controllers/games/home_controller.js
+      //= depend_on_asset controllers/games/index_controller.js
+      //= depend_on_asset controllers/games/update_controller.js
+      //= depend_on_asset controllers/sessions/sessions_controller.js
       //= depend_on_asset templates/games/index.html.erb
-      .when('/', {templateUrl:('<%= asset_path('templates/index.html')%>')})
       //= depend_on_asset templates/games/new.html.erb
-      .when('/games', {controller: 'GameIndexController',templateUrl: '<%= asset_path('templates/games/index.html.erb') %>'})
-      //= depend_on_asset templates/games/new.html.erb
-      .when('/game/new', {controller: 'GameController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
-      //= depend_on_asset templates/games/new.html.erb
-      .when('/game/edit/:id', {controller: 'GameUpdateController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
       //= depend_on_asset templates/games/home.html.erb
+
+      .when('/', {templateUrl:('<%= asset_path('templates/index.html')%>')})
+      .when('/games', {controller: 'GameIndexController',templateUrl: '<%= asset_path('templates/games/index.html.erb') %>'})
+      .when('/game/new', {controller: 'GameController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
+      .when('/game/edit/:id', {controller: 'GameUpdateController',templateUrl: '<%= asset_path('templates/games/new.html.erb') %>'})
       .when('/home', {controller: 'GameHomeController', templateUrl: '<%= asset_path('templates/games/home.html.erb') %>'})
-      //= templates/games/home.html.erb
+      
       
       .otherwise('/#/users') 
 }]);
