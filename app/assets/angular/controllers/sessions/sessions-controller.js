@@ -9,6 +9,12 @@ app.controller("SessionsController", function($scope , CurrentUser, $http, $loca
     
   }
 
+  $scope.dontShow = false;
+  
+  if(window.location.pathname == "/users/sign_in"){
+    $scope.dontShow = true;
+  }
+
 	$scope.signOut = function() {
     $http({
       method: "DELETE",

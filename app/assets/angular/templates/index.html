@@ -1,8 +1,6 @@
 <div class="inner" ng-controller="SessionsController">
-	
-	<div ng-show="!current_user">
+	<div ng-show="!current_user && !dontShow">
 		<p>You have to sign in in order to use this app!</p>
 		<a href="/users/sign_in" class="btn btn-info">Sign in</a>
 	</div>
-
 </div>
