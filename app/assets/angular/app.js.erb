@@ -15,9 +15,7 @@ angular.module('app', ['rails', 'ng-rails-csrf', 'ui.bootstrap','$strap.directiv
     $routeProvider
     //***********
       
-      //= depend_on_asset templates/games/index.html.erb
-      //= depend_on_asset templates/games/new.html.erb
-      //= depend_on_asset templates/games/home.html.erb
+      
 
       .when('/', {templateUrl:('<%= asset_path('templates/index.html')%>')})
       .when('/games', {controller: 'GameIndexController',templateUrl: '<%= asset_path('templates/games/index.html.erb') %>'})
