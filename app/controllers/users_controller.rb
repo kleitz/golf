@@ -30,6 +30,12 @@ class UsersController < ApplicationController
     respond_with @user = User.find(params[:id])
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path
+  end
+
   private
   def user_params
     params.require(:user).permit(:id, :name, :picture, :admin, :created_at, :updated_at, :date_of_birth, :username, :telephone, :email)
