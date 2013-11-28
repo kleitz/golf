@@ -1,52 +1,54 @@
 
   <div>
   	<div class="well">
-    	<legend>Create Game</legend>
+    	<legend>{{title}}</legend>
   	</div>
 	  <form name="gameForm" ng-submit="saveGame()" >
 			<div class="well"> 
-				<label >Date of game</label>
 				<div class="row">
 				  <div class="col-lg-4">
 				    <div class="form-group">
-				      <input type="text" class="form-control" ng-model="game.gameDate" name="date" data-date-format="yyyy-mm-dd" bs-datepicker ng-required="true">
+				      <input type="text" class="form-control" ng-model="game.gameDate" placeholder="Date of game" name="date" data-date-format="yyyy-mm-dd" bs-datepicker ng-required="true">
 				      <span class="input-icon glyphicon glyphicon-calendar"></span>
 				    </div>
 				    <span class="help-block error" ng-show="gameForm.date.$error.required">You need to add a date</span>
 				  </div>
-				  
 				</div>
 			</div>
 			<div class="well">
 				<ng-form name="teeTimes">
-					<label>Tee off times</label>	
 					<div class="row">
 					  <div class="col-lg-4">
 					    <div class="form-group">
-					    	
-					      <input type="text" class="form-control" ng-model="game.teeTime" name="time" ng-required="teeTimes.$dirty" >
+					      <input type="text" class="form-control" placeholder="Tee off times" ng-model="game.teeTime" name="time" ng-required="teeTimes.$dirty" >
 					      <span class="input-icon glyphicon glyphicon-time"></span>
 					    </div>
 					    <span class="help-block error" ng-show="dirty == true">You need to add a time</span>
 							<span class="help-block">Leave this blank if the tee time is to be anounced at a later date</span>
 					  </div>
+					  <div class="col-lg-4">
+					    <div class="form-group">
+					      <input type="text" placeholder="Venue" class="form-control" ng-model="game.teeVenue" name="time" />
+					    </div>
+					  </div>
 					  <div class="col-lg-3">
-							<a class="btn btn-success" href="" ng-click="addTee(game.teeTime)">Add tee off time</a>
+							<a class="btn btn-success" href="" ng-click="addTee(game.teeTime, game.teeVenue)">Add tee off time</a>
 						</div>
 					</div>
 				</ng-form>
-
 				<div class="row" ng-show="tees.length > 0"> 
 					<div class="col-md-4">
 			  		<table class="table">
 			  			<thead>
 				  			<tr>
-				  				<th>Tee off times</th>
+				  				<th>Time</th>
+				  				<th>Venue</th>
 				  				<th></th>	
 				  			</tr>
 			  			</thead>
 			  			<tr ng-repeat="tee in tees">
-			  				<td>{{tee.time | date: 'HH:mm Z'}}</td>
+			  				<td>{{tee.time}}</td>
+			  				<td>{{tee.venue}}</td>
 			  				<td><a ng-click="destroyTee($index, tee)" href="" class="btn btn-danger pull-right">Remove</a></td>
 			  			</tr>
 			  		</table>
@@ -66,7 +68,7 @@
 						<table class="table">
 			        <thead>
 			            <tr>
-			              <th>Users</th>
+			              <th>Members</th>
 			              <th></th>
 			            </tr>
 			        </thead>

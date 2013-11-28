@@ -6,13 +6,14 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 	$scope.flash = flash;
 
 	Game.get().then(function(games){
-		$scope.games = $filter("orderBy")(games, '-createdAt');
+		$scope.games = $filter("orderBy")(games, 'gameDate');
 		angular.forEach(games, function(game, gameIndex){
 			game.tees = [];
 			Tee.query({game_id: game.id}).then(function(tees){
 				game.tees = tees; 
 			})
 			PlayersGame.query({players: game.id}).then(function(players){
+				players = $filter("orderBy")(players, "createdAt");
 				game.players = [];
 				angular.forEach(players, function(value, index){
 					User.get(value.userId).then(function(player){

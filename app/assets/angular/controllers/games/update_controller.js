@@ -4,6 +4,8 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 	'Tee', 'CurrentUser', '$routeParams', '$location', 
 	function($window, $scope, flash, doubleClick, Game, User, PlayersGame, Tee, CurrentUser, $routeParams, $location) {
 
+	$scope.title = "Edit game"
+
 	User.get().then(function(u){
 		$scope.users = u;
 	});
@@ -57,13 +59,14 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 		});
 	}
 
-	$scope.addTee = function(time){
+	$scope.addTee = function(time,venue){
 		$scope.dirty = false;
 		if($scope.teeTimes.$valid){
 			var tee = {};
 			tee["time"] = time;
+			tee["venue"] = venue;
 			$scope.tees.push(tee);
-			new Tee({time: time, game_id: $routeParams.id}).save();
+			new Tee({time: time, venue: venue, game_id: $routeParams.id}).save();
 		}else{
 			$scope.dirty = true;
 		}

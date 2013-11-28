@@ -35,6 +35,6 @@ class TeesController < ApplicationController
 
   private
   def tee_params
-    params.require(:tee).permit(:id, :game_id, :time, :created_at, :updated_at)
+    params.require(:tee).permit(:id, :game_id, :time, :venue, :created_at, :updated_at)
   end
 end

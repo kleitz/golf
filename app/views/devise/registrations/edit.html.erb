@@ -2,7 +2,7 @@
   
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
     <% if resource.errors.any? %>
-      <div class="alert alert-error">
+      <div class="alert alert-danger">
         <a class="close" data-dismiss="alert">&#215;</a>
         <h4><%= pluralize(resource.errors.count, "error") %> prohibited the changes from being saved</h4>
         <ul>

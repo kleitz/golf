@@ -22,4 +22,8 @@ class RegistrationsController < Devise::RegistrationsController
     "/#/home"
   end
 
+  def after_update_path_for(resource)
+    "/#/home"
+  end
+
 end

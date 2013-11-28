@@ -7,6 +7,8 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 	'CurrentUser', '$routeParams', '$location', 
 	function($window, $scope, flash, doubleClick, Game, User, PlayersGame, Tee, CurrentUser, $routeParams, $location) {
 
+	$scope.title = "Create Game"
+
 	User.get().then(function(u){
 		$scope.users = u;
 	});
@@ -30,11 +32,12 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 		});
 	}
 	
-	$scope.addTee = function(time){
+	$scope.addTee = function(time, venue){
 		$scope.dirty = false;
 		if($scope.teeTimes.$valid){
 			var tee = {};
 			tee["time"] = time;
+			tee["venue"] = venue;
 			$scope.tees.push(tee);
 		}else{
 			$scope.dirty = true;
@@ -72,7 +75,7 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
   			new PlayersGame({game_id: obj.id, user_id: $scope.reserves[i].id, reserve: true, user_name: $scope.reserves[i].name}).save();
   		}
   		for(var i = 0; i<$scope.tees.length; i++){
-  			new Tee({game_id: obj.id, time: $scope.tees[i].time}).save();
+  			new Tee({game_id: obj.id, time: $scope.tees[i].time, venue: $scope.tees[i].venue}).save();
   		}
   	});
   	flash.set("The game has been created successfully");

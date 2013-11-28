@@ -2,7 +2,7 @@
   
   <%= form_for @user, :html => { :role => "form"} do |f| %>
     <% if @user.errors.any? %>
-      <div class="alert alert-error">
+      <div class="alert alert-danger">
         <a class="close" data-dismiss="alert">&#215;</a>
         <h4><%= pluralize(@user.errors.count, "error") %> prohibited the changes from being saved</h4>
         <ul>
