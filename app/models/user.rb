@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :picture, PictureUploader
 
-  has_many :players_games
+  has_many :players_games, :dependent => :destroy
   accepts_nested_attributes_for :players_games, allow_destroy: true
 
 end

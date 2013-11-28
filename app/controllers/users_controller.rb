@@ -32,7 +32,11 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    @pg = @user.players_games
     @user.destroy
+    @pg.each do |pg|
+      pg.destroy
+    end
     redirect_to users_path
   end
 

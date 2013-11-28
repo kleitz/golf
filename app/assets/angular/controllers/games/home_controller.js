@@ -8,23 +8,17 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 	Game.get().then(function(games){
 		$scope.games = $filter("orderBy")(games, 'gameDate');
 		angular.forEach(games, function(game, gameIndex){
-			game.tees = [];
-			Tee.query({game_id: game.id}).then(function(tees){
-				game.tees = tees; 
-			})
-			PlayersGame.query({players: game.id}).then(function(players){
-				players = $filter("orderBy")(players, "createdAt");
-				game.players = [];
-				angular.forEach(players, function(value, index){
-					User.get(value.userId).then(function(player){
-						player.reserve = value.reserve;
-						player.playersGameId = value.id
-						player.playersGameCreatedAt = value.createdAt;
-						game.players.push(player);
-						if(player.id == $scope.current_user.id){
-							game.current_user = $scope.current_user;
-						}
-					});
+			players = $filter("orderBy")(game.playersGames, "createdAt");
+			game.players = [];
+			angular.forEach(players, function(value, index){
+				User.get(value.userId).then(function(player){
+					player.reserve = value.reserve;
+					player.playersGameId = value.id
+					player.playersGameCreatedAt = value.createdAt;
+					game.players.push(player);
+					if(player.id == $scope.current_user.id){
+						game.current_user = $scope.current_user;
+					}
 				});
 			});
 		})

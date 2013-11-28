@@ -2,9 +2,9 @@ Golf::Application.routes.draw do
   resources :tees
 
   devise_for :users, :controllers => {:registrations => "registrations", :confirmations => "confirmations"}
-  resources :players_games
+  resources :players_games, :defaults => {format: :json}
 
-  resources :games
+  resources :games, :defaults => {format: :json}
 
   resources :users
 

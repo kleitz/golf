@@ -23,7 +23,7 @@
 					      <input type="text" class="form-control" placeholder="Tee off times" ng-model="game.teeTime" name="time" ng-required="teeTimes.$dirty" >
 					      <span class="input-icon glyphicon glyphicon-time"></span>
 					    </div>
-					    <span class="help-block error" ng-show="dirty == true">You need to add a time</span>
+					    <span class="help-block error" ng-show="teeTimes.$error.required">You need to add a time</span>
 							<span class="help-block">Leave this blank if the tee time is to be anounced at a later date</span>
 					  </div>
 					  <div class="col-lg-4">

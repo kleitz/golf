@@ -1,5 +1,4 @@
-<div ng-repeat="game in games | orderBy:'createdAt':'reverse=true'" class="well">
-	
+<div ng-repeat="game in games" class="well">
 	<legend ng-show="current_user.admin"><a href="/#/game/edit/{{game.id}}">Game date: {{game.gameDate}}</a></legend>
 	<legend ng-show="!current_user.admin">Game date: {{game.gameDate}}</legend>
 	<div ng-show="game.players.length > 0">

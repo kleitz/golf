@@ -33,14 +33,11 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 	}
 	
 	$scope.addTee = function(time, venue){
-		$scope.dirty = false;
 		if($scope.teeTimes.$valid){
 			var tee = {};
 			tee["time"] = time;
 			tee["venue"] = venue;
 			$scope.tees.push(tee);
-		}else{
-			$scope.dirty = true;
 		}
 	}
 
@@ -50,8 +47,8 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 
 	$scope.destroy = function(index,player){
 		if($scope.reserves.length > 0){
-			var reserve = $scope.reserves[$scope.reserves.length-1];
-			$scope.reserves.splice($scope.reserves.length-1,1);
+			var reserve = $scope.reserves[0];
+			$scope.reserves.splice(0,1);
 			$scope.players.push(reserve);
 		}
     $scope.players.splice(index, 1);

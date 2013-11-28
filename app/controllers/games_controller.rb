@@ -3,9 +3,15 @@ class GamesController < ApplicationController
 
   def index
     if params[:id]
-      respond_with Game.find(params[:id])
+      @game = Game.find(params[:id])
+      respond_to do |format|
+        format.json { render :json => @game.to_json( :include => [:players_games, :tees] ) }
+      end
     else
-      respond_with Game.all    
+      @games = Game.all
+      respond_to do |format|
+        format.json { render :json => @games.to_json( :include => [:players_games, :tees] ) }
+      end    
     end
   end
 
@@ -22,11 +28,22 @@ class GamesController < ApplicationController
   end
 
   def show
-    respond_with Game.find(params[:id])
+    @game = Game.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => @game.to_json( :include => [:players_games, :tees] ) }
+    end
   end
 
   def destroy
     @game = Game.find(params[:id])
+    @pg = @user.players_games
+    @pg.each do |pg|
+      pg.destroy
+    end
+    @tees = @game.tees
+    @tees.each do |t|
+      t.destroy
+    end
     @game.destroy
     respond_with @game
   end
