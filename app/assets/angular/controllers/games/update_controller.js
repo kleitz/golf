@@ -92,8 +92,8 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 	$scope.destroy = function(index,player){
 		if($scope.reserves.length > 0){
 			
-			var reserve = $scope.reserves[$scope.reserves.length-1];
-			$scope.reserves.splice($scope.reserves.length-1, 1);
+			var reserve = $scope.reserves[0];
+			$scope.reserves.splice(0, 1);
 			PlayersGame.get(reserve.playersGameId).then(function(player){
 				player.reserve = false;
 				player.save();
