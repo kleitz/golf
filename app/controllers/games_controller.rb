@@ -36,7 +36,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game = Game.find(params[:id])
-    @pg = @user.players_games
+    @pg = @game.players_games
     @pg.each do |pg|
       pg.destroy
     end
