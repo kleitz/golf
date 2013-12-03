@@ -3,7 +3,7 @@ var app = angular.module('app');
 app.controller('GameIndexController',['$scope', 'flash', 'Game', 'User', 'PlayersGame', 'CurrentUser', '$routeParams', '$location', function($scope, flash, Game, User, PlayersGame, CurrentUser, $routeParams, $location) {
 
 	Game.get().then(function(games){
-		$scope.games = games;
+		$scope.games = $filter("orderBy")(games, 'gameDate');
 		angular.forEach(games, function(game, gameIndex){
 			PlayersGame.query({players: game.id}).then(function(players){
 				game.players = [];
