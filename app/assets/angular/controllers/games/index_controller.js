@@ -1,6 +1,6 @@
 var app = angular.module('app');
 
-app.controller('GameIndexController',['$scope', 'flash', 'Game', 'User', 'PlayersGame', 'CurrentUser', '$routeParams', '$location', function($scope, flash, Game, User, PlayersGame, CurrentUser, $routeParams, $location) {
+app.controller('GameIndexController',['$filter','$scope', 'flash', 'Game', 'User', 'PlayersGame', 'CurrentUser', '$routeParams', '$location', function($filter, $scope, flash, Game, User, PlayersGame, CurrentUser, $routeParams, $location) {
 
 	Game.get().then(function(games){
 		$scope.games = $filter("orderBy")(games, 'gameDate');
