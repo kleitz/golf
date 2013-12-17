@@ -6,7 +6,7 @@
 			<ul class="list-inline list-unstyled">
 				<li ng-repeat="player in game.players | filter:{reserve:false} | orderBy: 'playersGameId' ">
 					<ul class="list-unstyled imageList">
-						<li class="hidden-xs playerImg"><img class="img-rounded img-thumbnail" src="{{player.picture.thumb.url}}" alt="{{player.name}} picture" width="100px" height="100px" /></li>
+						<li class="hidden-xs playerImg"><img ng-show="player.gravatarUrl" class="img-rounded img-thumbnail" src="{{player.gravatarUrl}}" alt="{{player.name}} picture" width="100px" height="100px" /><img ng-show="!player.gravatarUrl" class="img-rounded img-thumbnail" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&d=mm" alt="{{player.name}} picture" width="100px" height="100px" /></li>
 						<li>{{player.name}}</li>
 						</ul>
 				</li>
@@ -21,7 +21,7 @@
 			<ul class="list-inline list-unstyled">
 				<li ng-repeat="reserve in game.players | filter:{reserve:true}">
 					<ul class="list-unstyled imageList">
-						<li class="hidden-xs playerImg"><img class="img-rounded img-thumbnail" src="{{reserve.picture.thumb.url}}" alt="{{reserve.name}} picture" width="100px" height="100px" /></li>
+						<li class="hidden-xs playerImg"><img ng-show="reserve.gravatarUrl" class="img-rounded img-thumbnail" src="{{reserve.gravatarUrl}}" alt="{{reserve.name}} picture" width="100px" height="100px" /><img ng-show="!reserve.gravatarUrl" class="img-rounded img-thumbnail" src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&d=mm" alt="{{reserve.name}} picture" width="100px" height="100px" /></li>
 						<li>{{reserve.name}}</li>
 						</ul>
 				</li>

@@ -13,7 +13,7 @@
       </div>
     <% end %>
     <Legend>Edit User</Legend>
-    <div class="fileupload fileupload-new" data-provides="fileupload">
+    <!-- <div class="fileupload fileupload-new" data-provides="fileupload">
       <div class="fileupload-preview thumbnail" style="width: 120px; height: 110px;">
         <%=image_tag @user.picture_url(:thumb), :width => '100px', :alt => '@user_pic' %>
       </div>
@@ -21,7 +21,17 @@
         <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><%= f.file_field :picture %></span>
         <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
       </div>
-    </div> 
+    </div>  -->
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        <a href="http://gravatar.com/emails" target="_blank"><%= image_tag avatar_url(@user), class: 'img-rounded img-thumbnail', id: 'user_img' %></a>
+      </div>
+    </div>
+    <div id="user_img_change"> 
+      <span><a href="http://gravatar.com/emails">Change your picture at gravatar.com</a></span>
+    </div>
+    <%= f.hidden_field :gravatar_url, value: avatar_url(@user) %>
     <div class="row">  
       <div class="form-group col-md-4">
         <%= f.label :name %>
