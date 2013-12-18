@@ -8,10 +8,13 @@
 		<% end %>
 		<legend><%= @user.name %></legend>
 		<div class="row">
-			<div class="col-md-4">
-				<%= image_tag @user.picture_url(:thumb), :class => "img-rounded img-thumbnail" %>
-			</div>
-		</div>
+      <div class="form-group col-md-4">
+        <a href="http://gravatar.com/emails" target="_blank"><%= image_tag avatar_url(@user), class: 'img-rounded img-thumbnail', id: 'user_img' %></a>
+      </div>
+    </div>
+    <div id="user_img_change"> 
+      <span><a href="http://gravatar.com/emails">Change your picture at gravatar.com</a></span>
+    </div>
 		<br>
 		<div class="row">
 			<div class="col-md-4">
