@@ -14,7 +14,14 @@ angular.module('app', ['rails', 'ng-rails-csrf', 'ui.bootstrap','$strap.directiv
     //$locationProvider.html5Mode(true);
     $routeProvider
     
-      
+      //= depend_on_asset controllers/games/create_controller.js
+      //= depend_on_asset controllers/games/home_controller.js
+      //= depend_on_asset controllers/games/index_controller.js
+      //= depend_on_asset controllers/games/update_controller.js
+      //= depend_on_asset controllers/sessions/sessions_controller.js
+      //= depend_on_asset templates/games/index.html.erb
+      //= depend_on_asset templates/games/new.html.erb
+      //= depend_on_asset templates/games/home.html.erb
 
       .when('/', {templateUrl:('<%= asset_path('templates/index.html')%>')})
       .when('/games', {controller: 'GameIndexController',templateUrl: '<%= asset_path('templates/games/index.html.erb') %>'})
