@@ -13,6 +13,7 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 			angular.forEach(players, function(value, index){
 				User.get(value.userId).then(function(player){
 					player.reserve = value.reserve;
+					player.emailHash = $scope.emailHash(player.email);console.log(player.emailHash);
 					player.playersGameId = value.id
 					player.playersGameCreatedAt = value.createdAt;
 					game.players.push(player);
@@ -24,6 +25,9 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 		})
 	});
 	
+	$scope.emailHash = function(email){
+		return MD5(email);
+	}
 
   $scope.cancelGame = function(gameId, current_user, gameIndex){
   	var confirmation = confirm("Are you sure that you want to cancel your booking?");

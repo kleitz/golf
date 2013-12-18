@@ -62,6 +62,24 @@ app.factory("flash", function($rootScope) {
   };
 });
 
+app.directive('gravatar', function() {
+
+  return {
+    restrict: 'AE',
+      replace: true,
+      scope: {
+      email: '@',
+      width: '@',
+      height: '@',
+      emailHash: '@'
+     },
+     link: function(scope, el, attr) {
+       scope.defaultImage = 'http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&d=mm';
+     },
+     template: '<img alt="{{ name }}" class="img-rounded img-thumbnail" height="{{ height }}"  width="{{ width }}" src="https://secure.gravatar.com/avatar/{{ emailHash }}.jpg?s={{ width }}&d={{ defaultImage }}">'
+  };
+});
+
 app.factory('doubleClick', function(){
   console.log("double click");
   return false;

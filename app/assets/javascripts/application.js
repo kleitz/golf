@@ -27,6 +27,8 @@
 //= require angularjs/rails/resource
 //= require ng-rails-csrf
 //= require ../angular/app.js.erb
+//= require crypto-md5
+//= require MD5
 //= require_tree ../angular
 //= require_tree ../angular/controllers
 //= require_tree ../angular/services
