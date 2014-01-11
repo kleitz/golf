@@ -33,11 +33,16 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 	}
 	
 	$scope.addTee = function(time, venue){
-		if($scope.teeTimes.$valid){
+		if(time == null){
+			$scope.teeTimes.$error.teeTimeError = true;
+		}
+		if($scope.teeTimes.$valid && time != null ){
 			var tee = {};
 			tee["time"] = time;
 			tee["venue"] = venue;
 			$scope.tees.push(tee);
+			$scope.teeTimes.$error.teeTimeError = false;
+			$scope.game.teeTime = '';
 		}
 	}
 

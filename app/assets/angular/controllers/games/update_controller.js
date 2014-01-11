@@ -61,12 +61,17 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 
 	$scope.addTee = function(time,venue){
 		$scope.dirty = false;
-		if($scope.teeTimes.$valid){
+		if(time == null){
+			$scope.teeTimes.$error.teeTimeError = true;
+		}
+		if($scope.teeTimes.$valid && time != null ){
 			var tee = {};
 			tee["time"] = time;
 			tee["venue"] = venue;
 			$scope.tees.push(tee);
 			new Tee({time: time, venue: venue, game_id: $routeParams.id}).save();
+			$scope.teeTimes.$error.teeTimeError = false;
+			$scope.game.teeTime = '';
 		}else{
 			$scope.dirty = true;
 		}
