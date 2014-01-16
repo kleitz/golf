@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :logged_in, unless: :devise_controller?
 
   def index
   	render :layout =>	'application', :nothing => true
@@ -23,6 +24,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit :username, :email, :password, :password_confirmation
     end
+  end
+
+  def logged_in
+    redirect_to new_user_session_path unless current_user
+  end
+
+  def admin
+    redirect_to :root unless current_user.admin 
   end
 
 end

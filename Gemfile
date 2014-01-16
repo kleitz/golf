@@ -51,9 +51,15 @@ group :doc do
 end
 
 group :development, :test  do
-    gem 'sqlite3'
-    gem 'mailcatcher'
-    gem "capistrano"
+  gem 'sqlite3'
+  gem 'mailcatcher'
+  gem "capistrano"
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+end
+
+group :test do
+	gem 'factory_girl_rails'
 end
 
 # Use ActiveModel has_secure_password

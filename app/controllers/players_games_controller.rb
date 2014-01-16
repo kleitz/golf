@@ -1,5 +1,6 @@
 class PlayersGamesController < ApplicationController
 	respond_to :json
+  before_action :admin, [:edit, :create, :update, :destroy]
 
   def index
     if params[:players]

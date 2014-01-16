@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
 	respond_to :json
+  before_action :admin, only: [:edit, :create, :update, :destroy]
 
   def index
     if params[:id]
@@ -49,6 +50,7 @@ class GamesController < ApplicationController
   end
 
   private
+
   def game_update_params
     params.require(:game).permit(:id, :game_date, :comments, :tee1, :tee2, :name, :created_at, :updated_at)
   end
