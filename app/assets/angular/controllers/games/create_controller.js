@@ -43,6 +43,7 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 			$scope.tees.push(tee);
 			$scope.teeTimes.$error.teeTimeError = false;
 			$scope.game.teeTime = '';
+			$scope.teeTimes.$setPristine();
 		}
 	}
 

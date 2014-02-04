@@ -72,6 +72,7 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 			new Tee({time: time, venue: venue, game_id: $routeParams.id}).save();
 			$scope.teeTimes.$error.teeTimeError = false;
 			$scope.game.teeTime = '';
+			$scope.teeTimes.$setPristine();
 		}else{
 			$scope.dirty = true;
 		}
