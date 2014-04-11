@@ -1,6 +1,6 @@
 class PlayersGamesController < ApplicationController
 	respond_to :json
-  before_action :admin, [:edit, :create, :update, :destroy]
+  #before_action :admin, [:edit, :create, :update, :destroy]
 
   def index
     if params[:players]
@@ -10,7 +10,7 @@ class PlayersGamesController < ApplicationController
     elsif params[:game_id] && params[:user_id]
       respond_with PlayersGame.where(:game_id => params[:game_id], :user_id => params[:user_id])
     else
-      respond_with PlayersGame.all    
+      respond_with PlayersGame.all
     end
   end
 

@@ -24,7 +24,7 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 			});
 		})
 	});
-	
+
 	$scope.emailHash = function(email){
 		return MD5(email);
 	}
@@ -41,12 +41,12 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 						}
 					});
   				if(current_user.reserve == false){
-						$scope.games[gameIndex].players =  $filter('orderBy')($scope.games[gameIndex].players, '[-reserve, playersGameCreatedAt]'); 
+						$scope.games[gameIndex].players =  $filter('orderBy')($scope.games[gameIndex].players, '[-reserve, playersGameCreatedAt]');
 			  		PlayersGame.get($scope.games[gameIndex].players[0].playersGameId).then(function(player){
 			  			player.reserve = false;
 			  			$scope.games[gameIndex].players[0].reserve = false;
 			  			player.save();
-			  		});	
+			  		});
 			  	}
   			});
   		});
@@ -72,4 +72,4 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
     });
   }
 
-}]); 
+}]);
