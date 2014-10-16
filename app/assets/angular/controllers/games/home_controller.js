@@ -7,22 +7,25 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
 
 	Game.get().then(function(games){
 		$scope.games = $filter("orderBy")(games, 'gameDate');
-		angular.forEach(games, function(game, gameIndex){
-			players = $filter("orderBy")(game.playersGames, "createdAt");
-			game.players = [];
-			angular.forEach(players, function(value, index){
-				User.get(value.userId).then(function(player){
-					player.reserve = value.reserve;
-					player.emailHash = $scope.emailHash(player.email);console.log(player.emailHash);
-					player.playersGameId = value.id
-					player.playersGameCreatedAt = value.createdAt;
-					game.players.push(player);
-					if(player.id == $scope.current_user.id){
-						game.current_user = $scope.current_user;
-					}
-				});
-			});
-		})
+    console.log($scope.games);
+		//angular.forEach(games, function(game, gameIndex){
+			//players = $filter("orderBy")(game.playersGames, "createdAt");
+			//game.players = [];
+      //game.players = game.playersGames.Users;
+      //console.log(players);
+			// angular.forEach(players, function(value, index){
+			// 	User.get(value.userId).then(function(player){
+			// 		player.reserve = value.reserve;
+			// 		player.emailHash = $scope.emailHash(player.email);
+			// 		player.playersGameId = value.id
+			// 		player.playersGameCreatedAt = value.createdAt;
+			// 		game.players.push(player);
+			// 		if(player.id == $scope.current_user.id){
+			// 			game.current_user = $scope.current_user;
+			// 		}
+			// 	});
+			// });
+		//})
 	});
 
 	$scope.emailHash = function(email){
@@ -58,7 +61,7 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
     new PlayersGame({game_id: gameId, user_id: current_user.id, reserve: false, user_name: current_user.name}).save().then(function(obj){
     	current_user.reserve = false;
 	    current_user.playersGameId = obj.id;
-	    $scope.games[gameIndex].players.push(current_user);console.log("added player");
+	    $scope.games[gameIndex].players.push(current_user);
 	    $scope.games[gameIndex].current_user = current_user;
     });
   }
@@ -67,7 +70,7 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
   	new PlayersGame({game_id: gameId, user_id: current_user.id, reserve: true, user_name: current_user.name}).save().then(function(obj){
     	current_user.reserve = true;
 	    current_user.playersGameId = obj.id;
-	    $scope.games[gameIndex].players.push(current_user);console.log("added reserve");
+	    $scope.games[gameIndex].players.push(current_user);
 	    $scope.games[gameIndex].current_user = current_user;
     });
   }

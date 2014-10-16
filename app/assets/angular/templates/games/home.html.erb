@@ -1,14 +1,14 @@
 <div ng-repeat="game in games" class="well">
 	<legend ng-show="current_user.admin"><a href="/#/game/edit/{{game.id}}">Game date: {{game.gameDate}}</a></legend>
 	<legend ng-show="!current_user.admin">Game date: {{game.gameDate}}</legend>
-	<div ng-show="game.players.length > 0">
+	<div ng-show="game.playersGames.length > 0">
 		<h4>Players</h4>
 			<ul class="list-inline list-unstyled">
-				<li ng-repeat="player in game.players | filter:{reserve:false} | orderBy: 'playersGameId' ">
+				<li ng-repeat="player in game.playersGames | filter:{reserve:false} | orderBy: 'playersGameId' ">
 					<ul class="list-unstyled imageList">
 						<li class="hidden-xs playerImg">
-							<span gravatar name="{{player.name}}" width="110px" height="110px" email-hash="{{player.emailHash}}"></li>
-						<li>{{player.name}}</li>
+							<span gravatar name="{{player.userName}}" width="110px" height="110px" email-hash="{{player.emailHash}}"></li>
+						<li>{{player.userName}}</li>
 						</ul>
 				</li>
 			</ul>
@@ -16,14 +16,14 @@
 		<div ng-show="game.players.length == 0">
 			<p>There are no players for this game yet</p>
 		</div>	
-		<div ng-show="game.players.length > 8">
+		<div ng-show="game.playersGames.length > 8">
 			<hr />
 			<h4>Reserves</h4>
 			<ul class="list-inline list-unstyled">
-				<li ng-repeat="reserve in game.players | filter:{reserve:true}">
+				<li ng-repeat="reserve in game.playersGames | filter:{reserve:true}">
 					<ul class="list-unstyled imageList">
-						<li class="hidden-xs playerImg"><span gravatar name="{{reserve.name}}" width="110px" height="110px" email-hash="{{reserve.emailHash}}"></li>
-						<li>{{reserve.name}}</li>
+						<li class="hidden-xs playerImg"><span gravatar name="{{reserve.userName}}" width="110px" height="110px" email-hash="{{reserve.emailHash}}"></li>
+						<li>{{reserve.userName}}</li>
 						</ul>
 				</li>
 			</ul>
@@ -34,11 +34,11 @@
 					<p>You are already booked into this game</p>
 					<a href="" ng-click="cancelGame(game.id, game.current_user, $index)" class="btn btn-danger">Cancel booking</a>
 				</div>
-				<div ng-show="!game.current_user && game.players.length < 8" class="col-md-4">
+				<div ng-show="!game.current_user && game.playersGames.length < 8" class="col-md-4">
 					<p>Would you like to play in this game?</p>
 					<a href="" ng-click="bookGame(game.id, current_user, $index)" class="btn btn-success">Book a spot</a>
 				</div>
-				<div ng-show="!game.current_user && game.players.length >= 8" class="col-md-4">
+				<div ng-show="!game.current_user && game.playersGames.length >= 8" class="col-md-4">
 					<p>This game is fully booked! But you can reserve a spot</p>
 					<a href="" ng-click="bookReserve(game.id, current_user, $index)" class="btn btn-success">Book a reserve spot</a>
 				</div>

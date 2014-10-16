@@ -4,14 +4,17 @@ class PlayersGamesController < ApplicationController
 
   def index
     if params[:players]
-      respond_with PlayersGame.where(:game_id => params[:players])
+      @pg = PlayersGame.where(:game_id => params[:players])
     elsif params[:reserves]
-      respond_with PlayersGame.where(:game_id => params[:reserves], :reserve => true)
+      @pg = PlayersGame.where(:game_id => params[:reserves], :reserve => true)
     elsif params[:game_id] && params[:user_id]
-      respond_with PlayersGame.where(:game_id => params[:game_id], :user_id => params[:user_id])
+      @pg = PlayersGame.where(:game_id => params[:game_id], :user_id => params[:user_id])
     else
-      respond_with PlayersGame.all
+      @pg = PlayersGame.all
     end
+    respond_to do |format|
+      format.json { render :json => @pg.to_json( :include => [:user] ) }
+    end  
   end
 
   def edit

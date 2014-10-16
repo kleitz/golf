@@ -8,7 +8,7 @@
 
 puts "********Seeding Data Start************"
 
-#User.create(:name => "Jason Carty", :email => "jason@jcartydesign.com", :admin => true)
+User.create(:name => "Jason Carty", :email => "jason@jcartydesign.com", :password => 'password', :admin => true, :confirmed_at => '2014-01-01')
 #User.create(:name => "Ian Carty", :email => "ian@email.com", :admin => true)
 #User.create(:name => "Ryan Carty", :email => "ryan@email.com", :admin => true)
 User.create(:name => "Anthony Botes", :email => "anthony@bohlaletours.co.za", :admin => false, :telephone => "083 253 0838")

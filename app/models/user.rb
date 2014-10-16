@@ -18,11 +18,9 @@ class User < ActiveRecord::Base
     password == password_confirmation && !password.blank?
   end
 
-  mount_uploader :picture, PictureUploader
-
-  has_many :players_games, :dependent => :destroy
+  has_many :players_games, dependent: :destroy
   accepts_nested_attributes_for :players_games, allow_destroy: true
-
+  
 end
 
 
