@@ -14,23 +14,35 @@ class PlayersGamesController < ApplicationController
     end
     respond_to do |format|
       format.json { render :json => @pg.to_json( :include => [:user] ) }
-    end  
+    end
   end
 
   def edit
-    respond_with PlayersGame.find(params[:id])
+    @pg = PlayersGame.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => @pg.to_json( :include => [:user] ) }
+    end
   end
 
   def create
-    respond_with PlayersGame.create(players_game_params)
+    @pg = PlayersGame.create(players_game_params)
+    respond_to do |format|
+      format.json { render :json => @pg.to_json( :include => [:user] ) }
+    end
   end
 
   def update
-    respond_with PlayersGame.update(params[:id], players_game_params)
+    @pg =  PlayersGame.update(params[:id], players_game_params)
+    respond_to do |format|
+      format.json { render :json => @pg.to_json( :include => [:user] ) }
+    end
   end
 
   def show
-    respond_with PlayersGame.find(params[:id])
+    @pg = PlayersGame.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => @pg.to_json( :include => [:user] ) }
+    end
   end
 
   def destroy
