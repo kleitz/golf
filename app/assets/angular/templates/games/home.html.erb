@@ -8,7 +8,7 @@
 					<ul class="list-unstyled imageList">
 						<li class="hidden-xs playerImg">
 							<span gravatar name="{{player.userName}}" width="110px" height="110px" email-hash="{{player.emailHash}}"></li>
-						<li>{{player.userName}}</li>
+						<li>{{player.user.name}}</li>
 						</ul>
 				</li>
 			</ul>
@@ -23,7 +23,7 @@
 				<li ng-repeat="reserve in game.playersGames | filter:{reserve:true}">
 					<ul class="list-unstyled imageList">
 						<li class="hidden-xs playerImg"><span gravatar name="{{reserve.userName}}" width="110px" height="110px" email-hash="{{reserve.emailHash}}"></li>
-						<li>{{reserve.userName}}</li>
+						<li>{{reserve.user.name}}</li>
 						</ul>
 				</li>
 			</ul>

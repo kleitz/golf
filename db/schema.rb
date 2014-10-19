@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217191029) do
+ActiveRecord::Schema.define(version: 20141018205949) do
 
   create_table "games", force: true do |t|
     t.date     "game_date"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20131217191029) do
     t.boolean  "reserve"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_name"
+    t.string   "name"
   end
 
   create_table "tees", force: true do |t|

@@ -7,26 +7,30 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 	'CurrentUser', '$routeParams', '$location', 
 	function($window, $scope, flash, doubleClick, Game, User, PlayersGame, Tee, CurrentUser, $routeParams, $location) {
 
-	$scope.title = "Create Game"
+	$scope.game = {};
 
-	User.get().then(function(u){
-		$scope.users = u;
-	});
+  $scope.players = [];
+  $scope.reserves = [];
+  $scope.game.tees = [];
+  $scope.users = [];
+  $scope.flash = flash;
+  $scope.doubleClick = doubleClick;
 
-	$scope.players = [];
-	$scope.reserves = [];
-	$scope.tees = [];
-	$scope.flash = flash;
-	$scope.doubleClick = doubleClick;
+  $scope.title = "Create Game"
+  User.get().then(function(u){
+    $scope.users = u;
+  });
 
-	$scope.addPlayer = function(index,player){console.log(player);
+	$scope.addPlayer = function(index,player){
 		User.query({id:player.id}).then(function(user){
-			$scope.player = user;console.log($scope.players.length);
+			$scope.player = user;
+      $scope.player.user = {};
+      $scope.player.user.name = user.name;
 			if($scope.players.length >= 8){
-				$scope.reserves.push(user);console.log("player added to reserve list");
+				$scope.reserves.push($scope.player);
 				$scope.users.splice(index,1);
 			}else{
-				$scope.players.push(user);console.log("player added to list");
+				$scope.players.push($scope.player);
 				$scope.users.splice(index,1);
 			}
 		});
@@ -40,7 +44,7 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 			var tee = {};
 			tee["time"] = time;
 			tee["venue"] = venue;
-			$scope.tees.push(tee);
+			$scope.game.tees.push(tee);
 			$scope.teeTimes.$error.teeTimeError = false;
 			$scope.game.teeTime = '';
 			$scope.teeTimes.$setPristine();
@@ -48,7 +52,7 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 	}
 
 	$scope.destroyTee = function(index, tee){
-		$scope.tees.splice(index,1);
+		$scope.game.tees.splice(index,1);
 	}
 
 	$scope.destroy = function(index,player){
@@ -59,13 +63,11 @@ app.controller('GameController',['$window', '$scope', 'flash', 'doubleClick', 'G
 		}
     $scope.players.splice(index, 1);
     $scope.users.push(player);
-    console.log("removed player from list");
   }
 
   $scope.destroyReserve = function(index,player){
     $scope.reserves.splice(index, 1);
     $scope.users.push(player);
-    console.log("removed reserve from list");
   }
 
   

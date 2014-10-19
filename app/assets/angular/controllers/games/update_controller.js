@@ -1,39 +1,33 @@
 var app = angular.module('app');
 
-app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClick', 'Game', 'User', 'PlayersGame', 
+app.controller('GameUpdateController',['$window', '$filter', '$scope', 'flash', 'doubleClick', 'Game', 'User', 'PlayersGame', 
 	'Tee', 'CurrentUser', '$routeParams', '$location', 
-	function($window, $scope, flash, doubleClick, Game, User, PlayersGame, Tee, CurrentUser, $routeParams, $location) {
+	function($window, $filter, $scope, flash, doubleClick, Game, User, PlayersGame, Tee, CurrentUser, $routeParams, $location) {
 
 	$scope.title = "Edit game"
-
-	User.get().then(function(u){
-		$scope.users = u;
-	});
-
+	$scope.users = [];
+	$scope.doubleClick = doubleClick;
 	$scope.players = [];
 	$scope.reserves = [];
-	$scope.doubleClick = doubleClick;
+	
+	User.get().then(function(u){
+		for(var i = 0; i < u.length; i ++){
+			if(u[i].playersGames.length > 0){
+				for(var x = 0; x < u[i].playersGames.length; x ++){
+					if(u[i].playersGames[x].gameId != $routeParams.id){
+						$scope.users.push(u[i]);
+					}					
+				}
+			}else{
+				$scope.users.push(u[i]);
+			}
+		}
+	});
 
 	Game.query({id: $routeParams.id}).then(function(game){
 		$scope.game = game;
-		PlayersGame.query({players: $routeParams.id}).then(function(players){
-			angular.forEach(players, function(value, index){
-				User.query({id: value.userId}).then(function(user){
-					if(value.reserve == false){
-						user.playersGameId = value.id;
-						$scope.players.push(user);
-						$scope.removeUser(user);
-					}else{
-						user.playersGameId = value.id;
-						$scope.reserves.push(user);
-						$scope.removeUser(user);
-					}
-				});
-			});
-		});
-		Tee.query({game_id: game.id}).then(function(tees){
-			$scope.tees = tees;
-		});		
+		$scope.players = $filter('filter')(game.playersGames, {reserve: 'false'}, true);
+		$scope.reserves = $filter('filter')(game.playersGames, {reserve: 'true'}, true);
 	});
 
 	$scope.removeUser = function(player){
@@ -48,12 +42,14 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 		User.query({id:player.id}).then(function(user){
 			$scope.player = user;
 			if($scope.players.length >= 8){
-				$scope.reserves.push(user);console.log("player added to reserve list");
-				new PlayersGame({game_id: $routeParams.id, user_id: user.id, reserve: true, user_name: user.name}).save();
+				new PlayersGame({game_id: $routeParams.id, user_id: user.id, reserve: true, user_name: user.name}).save().then(function(player){
+					$scope.reserves.push(player);
+				});
 				var spliced = $scope.users.splice(index,1);
 			}else{
-				$scope.players.push(user);console.log("player added to list");
-				new PlayersGame({game_id: $routeParams.id, user_id: user.id, reserve: false, user_name: user.name}).save();
+				new PlayersGame({game_id: $routeParams.id, user_id: user.id, reserve: false, user_name: user.name}).save().then(function(player){
+					$scope.players.push(player);
+				});
 				var spliced = $scope.users.splice(index,1);
 			}
 		});
@@ -88,7 +84,7 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
 
 	$scope.saveGame = function(){
 		Game.get({id: $routeParams.id}).then(function(game){
-			game.game_date = $scope.game.gameDate; console.log("saved date");
+			game.game_date = $scope.game.gameDate; 
 			game.save();
 		});
   	flash.set("The game has been updated successfully");
@@ -96,33 +92,32 @@ app.controller('GameUpdateController',['$window', '$scope', 'flash', 'doubleClic
   }
 
 	$scope.destroy = function(index,player){
+		
+		var user = User.query({id:player.user.id});
 		if($scope.reserves.length > 0){
-			
 			var reserve = $scope.reserves[0];
 			$scope.reserves.splice(0, 1);
-			PlayersGame.get(reserve.playersGameId).then(function(player){
+			PlayersGame.get(reserve.id).then(function(player){
 				player.reserve = false;
 				player.save();
 				$scope.players.push(reserve);
 			});
-			
 		}
-		PlayersGame.get(player.playersGameId).then(function(player){
-			player.delete();console.log("removed player from db")
+		PlayersGame.get(player.id).then(function(player){
+			player.delete();
 		});
     $scope.players.splice(index, 1);
-    $scope.users.push(player);
-    console.log("removed player from list");
-	  
+    $scope.users.push(user);
+    
   }
 
   $scope.destroyReserve = function(index,player){
-  	PlayersGame.get(player.playersGameId).then(function(player){
-			player.delete();console.log("removed reserve from db")
+  	var user = User.query({id:player.user.id});
+  	PlayersGame.get(player.id).then(function(player){
+			player.delete();
 		});
     $scope.reserves.splice(index, 1);
-    $scope.users.push(player);
-    console.log("removed reserve from list");
+    $scope.users.push(user);
   }
 
 

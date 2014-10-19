@@ -1,13 +1,20 @@
 var app = angular.module('app');
 
-app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User', 'Tee', 'PlayersGame', 'CurrentUser', '$location', function($filter, $scope, flash, Game, User, Tee, PlayersGame, CurrentUser, $location) {
+app.controller('GameHomeController',['$filter', 'PlayersGame', '$scope', 'flash', 'Game', 'CurrentUser', '$location', function($filter, PlayersGame, $scope, flash, Game, CurrentUser, $location) {
 
 	$scope.current_user = CurrentUser;
 	$scope.flash = flash;
 
 	Game.get().then(function(games){
 		$scope.games = $filter("orderBy")(games, 'gameDate');
-    console.log($scope.games);
+    angular.forEach(games, function(game, index){
+      angular.forEach(game.playersGames, function(pg, i){
+        pg.emailHash = $scope.emailHash(pg.user.email)
+        if(pg.user.id == $scope.current_user.id){
+          game.current_user = $scope.current_user;
+        }
+      });
+    });
 		//angular.forEach(games, function(game, gameIndex){
 			//players = $filter("orderBy")(game.playersGames, "createdAt");
 			//game.players = [];
@@ -35,19 +42,20 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
   $scope.cancelGame = function(gameId, current_user, gameIndex){
   	var confirmation = confirm("Are you sure that you want to cancel your booking?");
   	if(confirmation){
-  		PlayersGame.query({game_id : gameId, user_id: current_user.id}).then(function(game){
+      
+  		PlayersGame.query({game_id : gameId, user_id: $scope.current_user.id}).then(function(game){
   			game[0].delete().then(function(){
-  				angular.forEach($scope.games[gameIndex].players, function(value,index){
-						if(value.id == current_user.id){
-							$scope.games[gameIndex].players.splice(index,1);
+  				angular.forEach($scope.games[gameIndex].playersGames, function(value,index){
+						if(value.user.id == current_user.id){
+							$scope.games[gameIndex].playersGames.splice(index,1);
 							current_user.reserve = value.reserve;
 						}
 					});
   				if(current_user.reserve == false){
-						$scope.games[gameIndex].players =  $filter('orderBy')($scope.games[gameIndex].players, '[-reserve, playersGameCreatedAt]');
-			  		PlayersGame.get($scope.games[gameIndex].players[0].playersGameId).then(function(player){
+						$scope.games[gameIndex].playersGames = $filter('orderBy')($scope.games[gameIndex].playersGames, '[-reserve, playersGameCreatedAt]');
+			  		PlayersGame.get($scope.games[gameIndex].playersGames[0].playersGameId).then(function(player){
 			  			player.reserve = false;
-			  			$scope.games[gameIndex].players[0].reserve = false;
+			  			$scope.games[gameIndex].playersGames[0].reserve = false;
 			  			player.save();
 			  		});
 			  	}
@@ -60,8 +68,9 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
   $scope.bookGame = function(gameId, current_user, gameIndex){
     new PlayersGame({game_id: gameId, user_id: current_user.id, reserve: false, user_name: current_user.name}).save().then(function(obj){
     	current_user.reserve = false;
-	    current_user.playersGameId = obj.id;
-	    $scope.games[gameIndex].players.push(current_user);
+	    current_user = obj;
+      current_user.emailHash = $scope.emailHash(obj.user.email);
+	    $scope.games[gameIndex].playersGames.push(current_user);
 	    $scope.games[gameIndex].current_user = current_user;
     });
   }
@@ -69,8 +78,9 @@ app.controller('GameHomeController',['$filter', '$scope', 'flash', 'Game', 'User
   $scope.bookReserve = function(gameId, current_user, gameIndex){
   	new PlayersGame({game_id: gameId, user_id: current_user.id, reserve: true, user_name: current_user.name}).save().then(function(obj){
     	current_user.reserve = true;
-	    current_user.playersGameId = obj.id;
-	    $scope.games[gameIndex].players.push(current_user);
+      current_user = obj;
+      current_user.emailHash = $scope.emailHash(obj.user.email);
+	    $scope.games[gameIndex].playersGames.push(current_user);
 	    $scope.games[gameIndex].current_user = current_user;
     });
   }

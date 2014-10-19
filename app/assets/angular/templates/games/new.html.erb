@@ -37,7 +37,7 @@
 						</div>
 					</div>
 				</ng-form>
-				<div class="row" ng-show="tees.length > 0"> 
+				<div class="row" ng-show="game.tees.length > 0"> 
 					<div class="col-md-4">
 			  		<table class="table">
 			  			<thead>
@@ -47,7 +47,7 @@
 				  				<th></th>	
 				  			</tr>
 			  			</thead>
-			  			<tr ng-repeat="tee in tees">
+			  			<tr ng-repeat="tee in game.tees">
 			  				<td>{{tee.time}}</td>
 			  				<td>{{tee.venue}}</td>
 			  				<td><a ng-click="destroyTee($index, tee)" href="" class="btn btn-danger pull-right">Remove</a></td>
@@ -68,18 +68,18 @@
 						</form>
 						<table class="table">
 			        <thead>
-			            <tr>
-			              <th>Members</th>
-			              <th></th>
-			            </tr>
+		            <tr>
+		              <th>Members</th>
+		              <th></th>
+		            </tr>
 			        </thead>
 			        <tbody>
-			            <tr ng-repeat="user in users| filter:search">
-			              <td>{{user.name}}</td>
-			              <td><a ng-click="addPlayer($index,user)" ng-dblclick="doubleClick()" href="" class="btn btn-success btn-sm pull-right">Add</a></td>
-			            </tr>  
+		            <tr ng-repeat="user in users| filter:search">
+		              <td>{{user.name}}</td>
+		              <td><a ng-click="addPlayer($index,user)" ng-dblclick="doubleClick()" href="" class="btn btn-success btn-sm pull-right">Add</a></td>
+		            </tr>  
 			        </tbody>
-			    </table>
+			    	</table>
 					</div>
 					<div class="col-md-4" ng-show="players.length > 0">
 						<form class="form">
@@ -96,12 +96,12 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr ng-repeat="player in players | filter:searchPlayers">
-			              <td>{{player.name}}</td>
-			              <td><a ng-click="destroy($index, player)" ng-dblclick="doubleClick()" href="" class="btn btn-danger btn-sm pull-right">Remove</a></td>
-			              <input type="hidden" ng-model="game.players_game.user_id" value="{{player.id}}" />
-			              <input type="hidden" ng-model="game.players_game.reserve" value="false" />
-			            </tr>  
+		            <tr ng-repeat="player in players | filter:searchPlayers ">
+		              <td>{{player.user.name}}</td>
+		              <td><a ng-click="destroy($index, player)" ng-dblclick="doubleClick()" href="" class="btn btn-danger btn-sm pull-right">Remove</a></td>
+		              <input type="hidden" ng-model="game.players_game.user_id" value="{{player.id}}" />
+		              <input type="hidden" ng-model="game.players_game.reserve" value="false" />
+		            </tr>  
 			        </tbody>
 			    </table>
 			  </div>
@@ -120,8 +120,8 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr ng-repeat="reserve in reserves | filter:searchReserves">
-			              <td>{{reserve.name}}</td>
+			            <tr ng-repeat="reserve in reserves | filter:searchReserves ">
+			              <td>{{reserve.user.name}}</td>
 			              <td><a ng-click="destroyReserve($index, reserve)" ng-dblclick="doubleClick()" href="" class="btn btn-danger btn-sm pull-right">Remove</a></td>
 			              <input type="hidden" ng-model="game.players_game.user_id" value="{{player.id}}" />
 			              <input type="hidden" ng-model="game.players_game.reserve" value="true" />

@@ -2,35 +2,31 @@
 var app = angular.module('app');
 
 app.factory('Game', ['railsResourceFactory', 'railsSerializer', function (railsResourceFactory, railsSerializer) {
-    return railsResourceFactory({
-        url: '/games',
-        name: 'game',
-        serializer: railsSerializer(function () {
-            this.resource('players_games', 'PlayersGame');
-            this.resource('tees', 'Tee');
-        })
-     });
+  return railsResourceFactory({
+    url: '/games',
+    name: 'game'
+   });
 }]);
 
 app.factory('User', ['railsResourceFactory', 'railsSerializer', function (railsResourceFactory, railsSerializer) {
-    return railsResourceFactory({
-        url: '/users',
-        name: 'user',
-     });
+  return railsResourceFactory({
+    url: '/users',
+    name: 'user',
+   });
 }]);
 
 app.factory('PlayersGame', ['railsResourceFactory', 'railsSerializer', function (railsResourceFactory, railsSerializer) {
-    return railsResourceFactory({
-        url: '/players_games',
-        name: 'players_game',
-     });
+  return railsResourceFactory({
+    url: '/players_games',
+    name: 'players_game',
+   });
 }]);
 
 app.factory('Tee', ['railsResourceFactory', 'railsSerializer', function (railsResourceFactory, railsSerializer) {
-    return railsResourceFactory({
-        url: '/tees',
-        name: 'tee',
-     });
+  return railsResourceFactory({
+    url: '/tees',
+    name: 'tee',
+   });
 }]);
 
 
@@ -81,7 +77,6 @@ app.directive('gravatar', function() {
 });
 
 app.factory('doubleClick', function(){
-  console.log("double click");
   return false;
 });
 

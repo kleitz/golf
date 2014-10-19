@@ -5,13 +5,17 @@ class GamesController < ApplicationController
   def index
     if params[:id]
       @games = Game.find(params[:id])
+
     else
       @games = Game.all
     end
+    
+    @games = @games.to_json( :include => { :tees => {}, :players_games => { :include => :user }} ) 
+
     respond_to do |format|
-      format.json { render :json => @games.to_json( :include => [:players_games, :tees] ) }
+      format.json { render json: @games}
     end
-  end
+  end   
 
   def edit
     respond_with Game.find(params[:id])

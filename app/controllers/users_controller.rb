@@ -5,9 +5,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all 
     if params[:id]
-      respond_with User.find(params[:id])
+      @users = User.find(params[:id])
     else
-      respond_with @users   
+      @users = @users   
+    end
+    respond_to do |format|
+      format.json { render :json => @users.to_json(:include => [:players_games])}
     end
   end
 
