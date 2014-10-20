@@ -15,24 +15,6 @@ app.controller('GameHomeController',['$filter', 'PlayersGame', '$scope', 'flash'
         }
       });
     });
-		//angular.forEach(games, function(game, gameIndex){
-			//players = $filter("orderBy")(game.playersGames, "createdAt");
-			//game.players = [];
-      //game.players = game.playersGames.Users;
-      //console.log(players);
-			// angular.forEach(players, function(value, index){
-			// 	User.get(value.userId).then(function(player){
-			// 		player.reserve = value.reserve;
-			// 		player.emailHash = $scope.emailHash(player.email);
-			// 		player.playersGameId = value.id
-			// 		player.playersGameCreatedAt = value.createdAt;
-			// 		game.players.push(player);
-			// 		if(player.id == $scope.current_user.id){
-			// 			game.current_user = $scope.current_user;
-			// 		}
-			// 	});
-			// });
-		//})
 	});
 
 	$scope.emailHash = function(email){
@@ -42,7 +24,7 @@ app.controller('GameHomeController',['$filter', 'PlayersGame', '$scope', 'flash'
   $scope.cancelGame = function(gameId, current_user, gameIndex){
   	var confirmation = confirm("Are you sure that you want to cancel your booking?");
   	if(confirmation){
-      
+
   		PlayersGame.query({game_id : gameId, user_id: $scope.current_user.id}).then(function(game){
   			game[0].delete().then(function(){
   				angular.forEach($scope.games[gameIndex].playersGames, function(value,index){
@@ -53,7 +35,7 @@ app.controller('GameHomeController',['$filter', 'PlayersGame', '$scope', 'flash'
 					});
   				if(current_user.reserve == false){
 						$scope.games[gameIndex].playersGames = $filter('orderBy')($scope.games[gameIndex].playersGames, '[-reserve, playersGameCreatedAt]');
-			  		PlayersGame.get($scope.games[gameIndex].playersGames[0].playersGameId).then(function(player){
+			  		PlayersGame.get({id: $scope.games[gameIndex].playersGames[0].id}).then(function(player){
 			  			player.reserve = false;
 			  			$scope.games[gameIndex].playersGames[0].reserve = false;
 			  			player.save();

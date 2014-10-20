@@ -3,14 +3,15 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @users = User.all 
+    @users = User.all
     if params[:id]
       @users = User.find(params[:id])
     else
-      @users = @users   
+      @users = @users
     end
     respond_to do |format|
       format.json { render :json => @users.to_json(:include => [:players_games])}
+      format.html {respond_with @users}
     end
   end
 
@@ -21,10 +22,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:notice] = "User has been updated successfully!" 
-      render :action => :show 
+      flash[:notice] = "User has been updated successfully!"
+      render :action => :show
     else
-      render :action => "edit" 
+      render :action => "edit"
     end
   end
 

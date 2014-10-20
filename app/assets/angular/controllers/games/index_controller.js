@@ -1,24 +1,14 @@
 var app = angular.module('app');
 
-app.controller('GameIndexController',['$filter','$scope', 'flash', 'Game', 'User', 'PlayersGame', 'CurrentUser', '$routeParams', '$location', function($filter, $scope, flash, Game, User, PlayersGame, CurrentUser, $routeParams, $location) {
+app.controller('GameIndexController',['$filter','$scope', 'flash', 'Game', 'CurrentUser', '$routeParams', '$location', function($filter, $scope, flash, Game, CurrentUser, $routeParams, $location) {
 
 	Game.get().then(function(games){
 		$scope.games = $filter("orderBy")(games, 'gameDate');
 		angular.forEach(games, function(game, gameIndex){
-			PlayersGame.query({players: game.id}).then(function(players){
-				game.players = [];
-				game.reserves = [];
-				angular.forEach(players, function(value, index){					
-					if(value.reserve == false){
-						game.players.push(value);
-					}else{
-						game.reserves.push(value);
-					}
-				});
-			});
-		})
+			game.players = $filter('filter')(game.playersGames, {reserve: 'false'}, true);
+			game.reserves = $filter('filter')(game.playersGames, {reserve: 'true'}, true);
+		});
 	});
-
 
 	$scope.flash = flash;
 
@@ -30,11 +20,10 @@ app.controller('GameIndexController',['$filter','$scope', 'flash', 'Game', 'User
 	        var games = $scope.games;
 	        games.splice(index, 1);
 	        $scope.message = "The game has been successfully removed";
-	        console.log("deleted game");
 	      });
 	    });
 	  }
   }
 
 
-}]); 
+}]);
